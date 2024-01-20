@@ -1,0 +1,20 @@
+@startuml actors
+left to right direction
+actor User
+actor Administrator as Admin
+actor CustomerSupport as Support
+actor PaymentServiceProvider as PaymentService
+
+rectangle "PhotoProductCreator Application" {
+  User -- (Create Products)
+  User -- (Order Products)
+  User -- (Contact Customer Support)
+  Admin -- (Manage System)
+  Support -- (User Support)
+  PaymentService -- (Payment Processing)
+}
+@enduml
+
+
+
+

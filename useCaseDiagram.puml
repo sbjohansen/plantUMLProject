@@ -1,0 +1,39 @@
+@startuml diagramPU
+
+actor User
+actor Administrator
+actor "Payment Service Provider"
+
+usecase "Product Creation and Customization" as PCC
+usecase "Placing an Order" as PO
+usecase "Order Tracking" as OT
+usecase "Customer Support Interaction" as CSI
+usecase "System Management" as SM
+usecase "Product Catalog Update" as PCU
+usecase "Order Management" as OM
+usecase "User Account Management" as UAM
+usecase "Payment Processing" as PP
+
+User --> PCC
+User --> PO
+User --> OT
+User --> CSI
+
+Administrator --> SM
+Administrator --> PCU
+Administrator --> OM
+Administrator --> UAM
+
+"Payment Service Provider" --> PP
+
+PCC <.. PO : <<extends>>
+PO <.. OT : <<extends>>
+PO <.. PP : <<includes>>
+CSI <.. OT : <<extends>>
+SM <.. PCU : <<includes>>
+PCU <.. OM : <<includes>>
+OM <.. UAM : <<includes>>
+
+@enduml
+
+

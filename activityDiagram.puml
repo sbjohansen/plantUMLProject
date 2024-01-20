@@ -1,0 +1,44 @@
+@startuml activityDiagram
+start
+:User logs in to the application;
+:User selects product creation option;
+if (Does user want to customize the product?) then (yes)
+    :User customizes product;
+else (no)
+    :User chooses default product;
+endif
+:User adds product to cart;
+:User proceeds to place an order;
+:User fills in shipping details;
+:User selects payment method;
+:Payment Service Provider processes payment;
+if (Is payment approved?) then (yes)
+    :System creates order;
+else (no)
+    :System reports payment error;
+    if (Try a different payment method?) then (yes)
+        :User selects another payment method;
+        :Payment Service Provider processes new payment;
+        if (Is new payment approved?) then (yes)
+            :System creates order;
+        else (no)
+            :User is notified of payment failure;
+            stop
+        endif
+    else (no)
+        stop
+    endif
+endif
+:User receives order confirmation;
+:User tracks order status;
+if (Is order delivered?) then (yes)
+    :User receives product;
+else (no)
+    :User contacts Customer Support;
+    stop
+endif
+:User submits feedback on product/service;
+stop
+@enduml
+
+

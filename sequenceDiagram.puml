@@ -1,0 +1,40 @@
+@startuml sequenceDiagram
+actor Administrator
+participant "Product Catalog" as Catalog
+participant "Database" as DB
+participant "Web Server" as Server
+participant "Notification System" as Notify
+
+activate Administrator
+
+Administrator -> Catalog : requestCatalogUpdate()
+activate Catalog
+Catalog -> DB : fetchCurrentCatalog()
+activate DB
+DB --> Catalog : currentCatalog
+deactivate DB
+Catalog --> Administrator : displayCatalog(currentCatalog)
+deactivate Catalog
+
+Administrator -> Catalog : updateCatalog(newCatalogData)
+activate Catalog
+Catalog -> DB : saveCatalog(newCatalogData)
+activate DB
+DB --> Catalog : updateConfirmation
+deactivate DB
+Catalog --> Server : synchronizeUpdate(newCatalogData)
+activate Server
+Server --> Notify : triggerNotifications(newCatalogData)
+activate Notify
+Notify -> Notify : sendNotificationsToUsers()
+Notify --> Server : notificationsSent
+deactivate Notify
+Server --> Catalog : updateComplete
+deactivate Server
+Catalog --> Administrator : confirmUpdate()
+deactivate Catalog
+
+deactivate Administrator
+@enduml
+
+

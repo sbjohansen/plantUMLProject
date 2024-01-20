@@ -1,0 +1,91 @@
+@startuml classDiagram
+
+class User {
+    - userId: int
+    - name: String
+    - email: String
+    - orders: List<Order>
+    + createUser(name: String, email: String): User
+    + placeOrder(order: Order): void
+    + trackOrder(orderId: int): Order
+    + interactWithSupport(issue: String): String
+}
+
+class Administrator {
+    - adminId: int
+    - accessLevel: int
+    + manageSystem(): void
+    + updateProductCatalog(product: Product, operation: String): void
+    + manageOrders(): void
+    + manageUserAccounts(): void
+}
+
+class CustomerSupport {
+    - supportId: int
+    - available: boolean
+    + provideSupport(userId: int, issue: String): String
+    + logIssue(issue: String): void
+    + resolveIssue(issueId: int): boolean
+}
+
+class PaymentServiceProvider {
+    - providerId: int
+    - serviceName: String
+    + processPayment(order: Order): boolean
+    + validatePaymentDetails(paymentDetails: PaymentDetails): boolean
+}
+
+class Product {
+    - productId: int
+    - name: String
+    - price: double
+    + createProduct(name: String, price: double): Product
+    + customizeProduct(customizationDetails: String): Product
+}
+
+class Order {
+    - orderId: int
+    - products: List<Product>
+    - orderStatus: String
+    + addProduct(product: Product): void
+    + removeProduct(productId: int): void
+    + updateOrderStatus(status: String): void
+}
+
+class PaymentDetails {
+    - cardNumber: String
+    - expirationDate: Date
+    - cvv: int
+    + validateDetails(): boolean
+}
+
+class ProductCatalog {
+    - products: List<Product>
+    + addProduct(product: Product): void
+    + removeProduct(productId: int): void
+    + updateProduct(product: Product): void
+}
+
+class OrderManagementSystem {
+    - orders: List<Order>
+    + createOrder(user: User, products: List<Product>): Order
+    + updateOrder(order: Order): void
+    + trackOrder(orderId: int): Order
+}
+
+class UserAccountManagement {
+    - users: List<User>
+    + createUserAccount(userDetails: User): User
+    + updateUserAccount(userId: int, userDetails: User): boolean
+    + deleteUserAccount(userId: int): boolean
+}
+
+User --> OrderManagementSystem
+User --> UserAccountManagement
+Administrator --> ProductCatalog
+Administrator --> UserAccountManagement
+CustomerSupport --> User
+PaymentServiceProvider --> PaymentDetails
+Order --> Product
+OrderManagementSystem --> ProductCatalog
+@enduml
