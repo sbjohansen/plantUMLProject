@@ -1,5 +1,4 @@
-@startuml diagramPU
-
+@startuml usecaseDiagram
 actor User
 actor Administrator
 actor "Payment Service Provider"
@@ -14,6 +13,10 @@ usecase "Order Management" as OM
 usecase "User Account Management" as UAM
 usecase "Payment Processing" as PP
 
+usecase "Enforcing Price Updates in Payment System" as EPPS
+usecase "Database Migration and System Update" as DMSU
+usecase "Custom Product Order Fulfillment" as CPOF
+
 User --> PCC
 User --> PO
 User --> OT
@@ -23,6 +26,8 @@ Administrator --> SM
 Administrator --> PCU
 Administrator --> OM
 Administrator --> UAM
+Administrator --> EPPS
+Administrator --> DMSU
 
 "Payment Service Provider" --> PP
 
@@ -33,7 +38,8 @@ CSI <.. OT : <<extends>>
 SM <.. PCU : <<includes>>
 PCU <.. OM : <<includes>>
 OM <.. UAM : <<includes>>
+PO <.. CPOF : <<extends>>
 
+PP <.. EPPS : <<includes>>
 @enduml
-
 

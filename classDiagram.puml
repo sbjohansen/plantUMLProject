@@ -1,5 +1,4 @@
 @startuml classDiagram
-
 class User {
     - userId: int
     - name: String
@@ -42,7 +41,6 @@ class Product {
     + createProduct(name: String, price: double): Product
     + customizeProduct(customizationDetails: String): Product
 }
-
 class Order {
     - orderId: int
     - products: List<Product>
@@ -80,12 +78,19 @@ class UserAccountManagement {
     + deleteUserAccount(userId: int): boolean
 }
 
+User "1" - "0..*" Order : contains >
+Order "1" *- "0..*" Product : contains >
 User --> OrderManagementSystem
 User --> UserAccountManagement
 Administrator --> ProductCatalog
 Administrator --> UserAccountManagement
-CustomerSupport --> User
-PaymentServiceProvider --> PaymentDetails
-Order --> Product
-OrderManagementSystem --> ProductCatalog
+CustomerSupport - "0..*" Order
+PaymentServiceProvider *- PaymentDetails
+OrderManagementSystem "1" - "0..*" Order : manages >
 @enduml
+
+
+
+
+
+

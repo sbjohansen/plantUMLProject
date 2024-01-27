@@ -22,9 +22,9 @@ Catalog -> DB : saveCatalog(newCatalogData)
 activate DB
 DB --> Catalog : updateConfirmation
 deactivate DB
-Catalog --> Server : synchronizeUpdate(newCatalogData)
+Catalog -> Server : synchronizeUpdate(newCatalogData)
 activate Server
-Server --> Notify : triggerNotifications(newCatalogData)
+Server -> Notify : triggerNotifications(newCatalogData)
 activate Notify
 Notify -> Notify : sendNotificationsToUsers()
 Notify --> Server : notificationsSent
